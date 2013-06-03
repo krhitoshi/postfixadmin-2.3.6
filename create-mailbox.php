@@ -130,6 +130,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
             $pCreate_mailbox_password_text = $PALANG['pCreate_mailbox_password_text_error'];
         }
     }
+	$min_length = $CONF['min_password_length'];
+	if($min_length > 0 && strlen($fPassword) < $min_length) {
+            $error = 1;
+            $tUsername = escape_string ($_POST['fUsername']);
+            $tName = $fName;
+            $tQuota = $fQuota;
+            $tDomain = $fDomain;
+            $pCreate_mailbox_password_text = '<span class="error_msg">'.sprintf($PALANG['pPasswordTooShort'], $min_length).'</span>';
+	}
+
 
     if ($CONF['quota'] == "YES")
     {
